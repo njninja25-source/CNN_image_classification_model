@@ -93,9 +93,11 @@ for epoch in range(epoches):
      epoch_train_loss = runnning_loss/len(X_train)
      train_loss.append(epoch_train_loss)
 
-     # validation 
+     # validation & testing
 
      model.eval()
+     total = 0
+     correcct = 0
 
      with ts.no_grad():
           running_val_loss =0.00
@@ -104,11 +106,28 @@ for epoch in range(epoches):
                outputs = model.forward(image)
                loss = critiria(outputs , label)
                running_val_loss +=loss.item()
-
+               _ , predicted = ts.max( outputs , 1)
+               correcct += (predicted==label).sum().item() 
+               total += label.size(0)
           epoch_val_losses =running_val_loss/len(X_test)
           val_loss.append(epoch_val_losses)
-    
+              
      print(f"epoch_train_loss {epoch+1} = {epoch_train_loss} & epoch_val_loss {epoch+1} = {epoch_val_losses} ")
+     print(f" model accuracy = {correcct *100/total} %")
 
 # plotting
+import pandas as pd
 
+loss_df = pd.DataFrame({
+    "Training Loss": train_loss,
+    "Validation Loss": val_loss
+})
+
+plt.plot(loss_df["Training Loss"], label = "Training Loss")
+plt.plot(loss_df["Validation Loss"], label = "Validation Loss")
+
+plt.xlabel("Epochs")
+plt.ylabel("Losses")
+
+plt.legend()
+plt.show()
