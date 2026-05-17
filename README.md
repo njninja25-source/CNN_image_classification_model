@@ -1,6 +1,3 @@
-# CNN_image_classification_model
-This project implements a Convolutional Neural Network (CNN) in PyTorch to classify images from the CIFAR‑10 dataset (60,000 32×32 color images across 10 classes). The model is trained using supervised learning with cross‑entropy loss
-
 # Model
 The model is a Convolutional Neural Network (CNN) built with PyTorch, designed to classify images from the CIFAR-10 dataset. It extracts hierarchical features through convolutional and pooling layers, then maps them to class probabilities using fully connected layers.
 
@@ -10,6 +7,48 @@ The model is a Convolutional Neural Network (CNN) built with PyTorch, designed t
 Input: 32 × 32 × 3 (RGB image)
 
 Conv2d(3 → 32, kernel_size=3, padding=1)
+
+Formula: 
+(
+𝑛
+−
+𝑓
++
+2
+𝑝
+)
+/
+𝑠
+𝑡
+𝑟
+𝑖
+𝑑
+𝑒
++
+1
+
+For 
+𝑛
+=
+32
+,
+𝑓
+=
+3
+,
+𝑝
+=
+1
+,
+𝑠
+𝑡
+𝑟
+𝑖
+𝑑
+𝑒
+=
+1
+: Output = 32
 
 Activation: ReLU
 
@@ -35,7 +74,7 @@ Activation: ReLU
 
 Pooling: MaxPool2d(2,2) → reduces dimension to 4 × 4 × 128
 
-# Fully Connected Layers
+Fully Connected Layers
 Flattening
 
 Output from last conv block: 4 × 4 × 128 = 2048 features
@@ -52,7 +91,7 @@ Linear(256 → 10)
 
 Produces logits for 10 CIFAR-10 classes (airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck)
 
-# Training Setup
+Training Setup
 Loss Function: CrossEntropyLoss (includes softmax internally)
 
 Optimizer: Adam
@@ -66,3 +105,24 @@ Each convolutional layer uses padding=1 to preserve spatial dimensions before po
 
 MaxPool2d(2,2) halves the spatial resolution at each stage.
 
+The dimension calculations follow:
+
+**Output size**
+=
+𝑛
+−
+𝑓
++
+2
+𝑝
+𝑠
+𝑡
+𝑟
+𝑖
+𝑑
+𝑒
++
+1
+The final feature map size (4 × 4 × 128) is flattened before entering fully connected layers.
+
+The last linear layer outputs 10 logits, one for each CIFAR-10 class.
